@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using SharpXusb;
 
 namespace SharpXusbTestApp
@@ -198,12 +199,19 @@ namespace SharpXusbTestApp
         public static void ToConsole(this XusbGamepadEx gamepad, int indentAmount = 0)
         {
             string indent = GetIndentation(indentAmount);
+            using var f = File.AppendText("inputs.txt");
 
             Console.WriteLine($"{indent}Buttons:     0x{gamepad.Buttons:X4}");
             Console.WriteLine($"{indent}Triggers:    L: 0x{gamepad.LeftTrigger:X2}  R: 0x{gamepad.RightTrigger:X2}");
             Console.WriteLine($"{indent}LeftThumb:   X: 0x{gamepad.LeftThumbX:X4}  Y: 0x{gamepad.LeftThumbY:X4}");
             Console.WriteLine($"{indent}RightThumb:  X: 0x{gamepad.RightThumbX:X4}  Y: 0x{gamepad.RightThumbY:X4}");
             Console.WriteLine($"{indent}Ext:         0x{gamepad.Ext1:X2}-{gamepad.Ext2:X2}-{gamepad.Ext3:X2}-{gamepad.Ext4:X2}-{gamepad.Ext5:X2}-{gamepad.Ext6:X2}");
+
+            f.WriteLine($"{indent}Buttons:     0x{gamepad.Buttons:X4}");
+            f.WriteLine($"{indent}Triggers:    L: 0x{gamepad.LeftTrigger:X2}  R: 0x{gamepad.RightTrigger:X2}");
+            f.WriteLine($"{indent}LeftThumb:   X: 0x{gamepad.LeftThumbX:X4}  Y: 0x{gamepad.LeftThumbY:X4}");
+            f.WriteLine($"{indent}RightThumb:  X: 0x{gamepad.RightThumbX:X4}  Y: 0x{gamepad.RightThumbY:X4}");
+            f.WriteLine($"{indent}Ext:         0x{gamepad.Ext1:X2}-{gamepad.Ext2:X2}-{gamepad.Ext3:X2}-{gamepad.Ext4:X2}-{gamepad.Ext5:X2}-{gamepad.Ext6:X2}");
         }
 
         public static void ToConsole(this XusbVibration vibrationState, int indentAmount = 0)
